@@ -13,6 +13,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -30,18 +31,20 @@ public class ListenBasic extends PlayBasic {
 	RadioButton rd0, rd1, rd2, rd3;
 	RadioGroup rdg;
 	Button btNext, btCheck;
-	
-	
 
+	ImageView ivListen;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listen);
+		
+//		Nút nghe
+		ivListen = (ImageView) findViewById(R.id.imageView1);
 
 		tvCauHoi = (TextView) findViewById(R.id.textView1);
 		tvThongBao = (TextView) findViewById(R.id.textView2);
-
 		rdg = (RadioGroup) findViewById(R.id.radioGroup1);
 		rd0 = (RadioButton) findViewById(R.id.radio0);
 		rd1 = (RadioButton) findViewById(R.id.radio1);
@@ -51,18 +54,9 @@ public class ListenBasic extends PlayBasic {
 		btCheck = (Button) findViewById(R.id.button2);
 		tvCauHoi.setTextColor(Color.RED);
 		btCheck.setVisibility(View.GONE);
-		
-		
-		
 
 		QuestionDatabase db = new QuestionDatabase(this);
-		// try {
-		// db.createDatabase();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// Toast.makeText(this, "Lỗi tạo cơ sỡ dữ liệu", Toast.LENGTH_SHORT)
-		// .show();
-		// }
+
 		list_question = new ArrayList<Question>();
 		list_question = db.layNcaungaunghien(socau);
 		hienthi(index);
@@ -97,7 +91,7 @@ public class ListenBasic extends PlayBasic {
 
 				if (index >= socau) {
 					tvThongBao.setText("Kết quả: ");
-					tvCauHoi.setText("Bạn làm đúng " + caudung + " câu" );
+					tvCauHoi.setText("Bạn làm đúng " + caudung + " câu");
 					rd0.setVisibility(View.GONE);
 					rd2.setVisibility(View.GONE);
 					rd3.setVisibility(View.GONE);
