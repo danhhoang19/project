@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class QuestionDatabase extends SQLiteOpenHelper {
 
 	private static String DB_PATH = "/data/data/com.example.tracnghiem/databases/";
-	private static String DB_NAME = "databasecauhoi.sqlite";
+	private static String DB_NAME = "databasecauhoi.sql";
 	private static final int DB_VERSION = 1;
 	private static final String TABLE_NAME = "tablecauhoi";
 
@@ -92,6 +92,7 @@ public class QuestionDatabase extends SQLiteOpenHelper {
 	}
 
 	public List<Question> layNcaungaunghien(int socau) {
+		
 		List<Question> ds_cauhoi = new ArrayList<Question>();
 		String limit = "0, " + socau;
 		SQLiteDatabase db = this.getReadableDatabase();

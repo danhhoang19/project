@@ -18,19 +18,20 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ListenBasic extends Activity {
+public class ListenBasic extends PlayBasic {
 	int socau = 10;
 	int index = 0;
 
 	List<Question> list_question;
 	Question cauhientai;
 	int caudung = 0;
-	int soMiliGiay = 11000;
 	CountDownTimer demThoiGian;
 	TextView tvCauHoi, tvThongBao, tvThoiGian;
 	RadioButton rd0, rd1, rd2, rd3;
 	RadioGroup rdg;
 	Button btNext, btCheck;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,11 @@ public class ListenBasic extends Activity {
 		rd3 = (RadioButton) findViewById(R.id.radio3);
 		btNext = (Button) findViewById(R.id.button1);
 		btCheck = (Button) findViewById(R.id.button2);
-		tvThongBao.setTextColor(Color.BLUE);
 		tvCauHoi.setTextColor(Color.RED);
 		btCheck.setVisibility(View.GONE);
+		
+		
+		
 
 		QuestionDatabase db = new QuestionDatabase(this);
 		// try {
@@ -63,7 +66,6 @@ public class ListenBasic extends Activity {
 		list_question = new ArrayList<Question>();
 		list_question = db.layNcaungaunghien(socau);
 		hienthi(index);
-		thoigian();
 		btNext.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -73,17 +75,16 @@ public class ListenBasic extends Activity {
 							"Vui lòng chọn một câu trả lời", Toast.LENGTH_SHORT)
 							.show();
 				} else {
-					
+
 					Kiemtracaudung();
 					index++;
 					if (index < socau) {
 						hienthi(index);
-						thoigian();
 					} else {
 						index = 0;
 						btNext.setVisibility(View.GONE);
 						btCheck.setVisibility(View.VISIBLE);
-						tvThoiGian.setVisibility(View.GONE);
+
 					}
 				}
 			}
@@ -93,11 +94,10 @@ public class ListenBasic extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				demThoiGian.cancel();
-				tvThoiGian.setVisibility(View.GONE);
+
 				if (index >= socau) {
 					tvThongBao.setText("Kết quả: ");
-					tvCauHoi.setText("Bạn làm đúng " + caudung + " câu");
+					tvCauHoi.setText("Bạn làm đúng " + caudung + " câu" );
 					rd0.setVisibility(View.GONE);
 					rd2.setVisibility(View.GONE);
 					rd3.setVisibility(View.GONE);
@@ -158,34 +158,6 @@ public class ListenBasic extends Activity {
 		rd3.setText(cauhientai.cau_d);
 		// Sau khi hiển thị, xóa Checked của các Radion Button của Radion Group.
 		rdg.clearCheck();
-	}
-
-	private void thoigian() {
-		demThoiGian = new CountDownTimer(soMiliGiay, 1000) {
-			@Override
-			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub
-				tvThoiGian.setText("Thời gian: " + millisUntilFinished / 1000);
-			}
-
-			@Override
-			public void onFinish() {
-				// TODO Auto-generated method stub
-				Kiemtracaudung();
-				index++;
-				if (index < socau) {
-					hienthi(index);
-					thoigian();
-				} else {
-					index = 0;
-					btNext.setVisibility(View.GONE);
-					btCheck.setVisibility(View.VISIBLE);
-					tvThoiGian.setVisibility(View.GONE);
-					demThoiGian.cancel();
-				}
-			}
-		};
-		demThoiGian.start();
 	}
 
 	protected void Kiemtracaudung() {

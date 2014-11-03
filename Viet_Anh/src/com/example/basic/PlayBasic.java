@@ -4,6 +4,7 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.AvoidXfermode;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -17,39 +18,20 @@ import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
+import com.example.storage.Activity_Storage;
 import com.example.viet_anh.R;
 
 public class PlayBasic extends Activity implements OnClickListener {
-
-	int[] imageIDs = { R.drawable._a, R.drawable._b, R.drawable._c,
-			R.drawable._d, R.drawable._e, R.drawable._f, R.drawable._g,
-			R.drawable._h, R.drawable._i, R.drawable._j, R.drawable._k,
-			R.drawable._l, R.drawable._m, R.drawable._n, R.drawable._o,
-			R.drawable._p, R.drawable._q, R.drawable._r, R.drawable._s,
-			R.drawable._t, R.drawable._u, R.drawable._v, R.drawable._w,
-			R.drawable._x, R.drawable._y, R.drawable._z, R.drawable._z };
-	String[] text = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-			"l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-			"y", "z" };
-	String[] text2 = { "/eɪ/", "/bi:/", "/si:/", "/di:/", "/i:/", "/ef/",
-			"/dʒi:/", "/eɪtʃ/", "/aɪ/", "/dʒeɪ/", "/keɪ/", "/el/", "/em/",
-			"/en/", "/oʊ/", "/pi:/", "/kju:/", "/ɑ:r/", "/es/", "/ti:/",
-			"/ju:/", "/vi:/", "/ˈdʌblju:/", "/eks/", "/waɪ/", "/zi:/" };
-
-	int[] media = { R.raw._a, R.raw._b, R.raw._c, R.raw._d, R.raw._e, R.raw._f,
-			R.raw._g, R.raw._h, R.raw._i, R.raw._j, R.raw._k, R.raw._l,
-			R.raw._m, R.raw._n, R.raw._o, R.raw._p, R.raw._q, R.raw._r,
-			R.raw._s, R.raw._t, R.raw._u, R.raw._v, R.raw._w, R.raw._x,
-			R.raw._y, R.raw._z };
 
 	private ImageSwitcher switcherl;
 	private int mPosition = 0;
 	private ImageView lNext, ivnghe;
 	private TextView transLearn, textLearn, textView1;
 	MediaPlayer mediaPlayer;
- 
+
 	// private Dialog dialog;
 
 	@Override
@@ -74,13 +56,7 @@ public class PlayBasic extends Activity implements OnClickListener {
 			}
 
 		});
-		ivnghe.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				donghe();
-			}
-		});
 		Animation in = AnimationUtils.loadAnimation(this,
 				android.R.anim.slide_in_left);
 		Animation out = AnimationUtils.loadAnimation(this,
@@ -99,19 +75,25 @@ public class PlayBasic extends Activity implements OnClickListener {
 
 	}
 
-	protected void donghe() {
-
-	}
-
 	protected void doPlay() {
-		switcherl.setImageResource(imageIDs[mPosition]);
-		transLearn.setText(text2[mPosition]);
-		textLearn.setText(text[mPosition]);
-		mediaPlayer = MediaPlayer.create(this, media[mPosition]);
+		switcherl.setImageResource(Activity_Storage.ABC_IMAGE[mPosition]);
+		transLearn.setText(Activity_Storage.ABC_TEXT2[mPosition]);
+		textLearn.setText(Activity_Storage.ABC_TEXT[mPosition]);
+		mediaPlayer = MediaPlayer.create(this,
+				Activity_Storage.ABC_MEDIA[mPosition]);
 		mediaPlayer.start();
-		mPosition = (mPosition + 1) % imageIDs.length;
+		mPosition = (mPosition + 1) % Activity_Storage.ABC_IMAGE.length;
+		textView1.setText((mPosition) + " of 26");
+		// Sự kiện nút nghe
+		ivnghe.setOnClickListener(new OnClickListener() {
 
-		if (mPosition == 2) {
+			@Override
+			public void onClick(View v) {
+				mediaPlayer.start();
+
+			}
+		});
+		if (mPosition == 5) {
 			doDialog();
 
 		}
