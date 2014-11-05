@@ -1,12 +1,8 @@
 package com.example.basic;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.viet_anh.R;
-
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -18,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.viet_anh.R;
 
 public class ListenBasic extends PlayBasic {
 	int socau = 10;
@@ -33,14 +31,14 @@ public class ListenBasic extends PlayBasic {
 	Button btNext, btCheck;
 
 	ImageView ivListen;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listen);
-		
-//		Nút nghe
+
+		// Nút nghe
 		ivListen = (ImageView) findViewById(R.id.imageView1);
 
 		tvCauHoi = (TextView) findViewById(R.id.textView1);
@@ -70,7 +68,6 @@ public class ListenBasic extends PlayBasic {
 							.show();
 				} else {
 
-					Kiemtracaudung();
 					index++;
 					if (index < socau) {
 						hienthi(index);
@@ -154,21 +151,4 @@ public class ListenBasic extends PlayBasic {
 		rdg.clearCheck();
 	}
 
-	protected void Kiemtracaudung() {
-		String cautraloi = "";
-		if (rd0.isChecked() == true)
-			cautraloi = "a";
-		else if (rd1.isChecked() == true)
-			cautraloi = "b";
-		else if (rd2.isChecked() == true)
-			cautraloi = "c";
-		else if (rd3.isChecked() == true)
-			cautraloi = "d";
-		// Lưu trữ câu trả lời của người dùng vào List
-		list_question.get(index).cautraloi = cautraloi;
-		// Kiểm tra câu trả lời và đáp án
-		if (cautraloi.equalsIgnoreCase(cauhientai.dapan)) {
-			caudung += 1;
-		}
-	}
 }
